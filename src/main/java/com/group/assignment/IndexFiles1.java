@@ -1,5 +1,4 @@
-import org.apache.lucene.search.similarities.PerFieldSimilarityWrapper;
-import org.apache.lucene.search.similarities.Similarity;
+package com.group.assignment;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -8,31 +7,30 @@ import java.io.FileReader;
 import java.io.IOException;
 
 import java.util.ArrayList;
-
-import java.nio.file.Paths;
-import java.nio.file.Files;
+import java.nio.file.*;
+import com.qingqinli.websearch.*;
 
 import org.apache.lucene.analysis.Analyzer;
-import org.apache.lucene.analysis.core.WhitespaceAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
-import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.index.IndexWriter;
+import org.apache.lucene.search.similarities.PerFieldSimilarityWrapper;
+import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.index.IndexWriterConfig;
-import org.apache.lucene.search.similarities.BM25Similarity;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
  
-public class IndexFiles {
+public class IndexFiles1 {
 
 	// Directory where the search index will be saved
 	private static String INDEX_DIRECTORY = "C:\\Users\\winnie\\Desktop\\index";
 
 	public static void main(String[] args) throws IOException {
-		File files = new File("C:\\Users\\winnie\\Desktop\\test");
+		//File files = new File("C:\\Users\\winnie\\Desktop\\data");
+		File files = new File("C:\\Users\\winnie\\Documents\\information retrieval and web search\\Assignment Two\\Assignment Two\\data\\la");
 		File[] fs = files.listFiles();
 		String[] fileNames = new String[fs.length];
 		for(int i = 0; i < fs.length; i++) {
@@ -69,7 +67,7 @@ public class IndexFiles {
 	        String fileName = arg;
 	        // This will reference one line at a time
 	        String line = null,flag=null;
-	        String DOCNO=null,HEADER=null,TEXT=null,PARENT=null,HT=null,BYLINE=null,GRAPHIC=null;
+	        String DOCNO=null,HEADER=null,TEXT=null,PARENT=null,BYLINE=null,GRAPHIC=null;
 	        try {
 	            // FileReader reads text files in the default encoding.
 	            FileReader fileReader = new FileReader(fileName);
@@ -123,13 +121,14 @@ public class IndexFiles {
 	            		}
 	            		flag="enddocno";
                       }
-	            	if(flag=="ht")
-	            	{
-	            		String[] temp;
-                        String delimeter = "\"";  
-                        temp = line.split(delimeter);
-                        HT=temp[1];
-	            		}
+	            	//if(flag=="ht")
+	            	//{
+	            		//String[] temp;
+                       // String delimeter = "\"";  
+                       // temp = line.split(delimeter);
+                        //System.out.println(line);
+                        //HT=temp[1];
+	            		//}
 	            	if(flag=="parent")
                     {
                   	    String[] temp;
@@ -142,7 +141,7 @@ public class IndexFiles {
                     	if(line.contains("<HEADER>")||line.contains("<HEADLINE>"))
                     		continue;  
                     	else
-                    		tempcontent.append(line);
+                    		tempcontent.append(line+" ");
                     }
                     if(flag=="endheader")
                     {
@@ -157,7 +156,7 @@ public class IndexFiles {
                     	if(line.contains("<BYLINE>"))
                     		continue;  
                     	else
-                    		tempcontent.append(line);
+                    		tempcontent.append(line+" ");
                     }
                     if(flag=="endbyline")
                     {
@@ -172,7 +171,7 @@ public class IndexFiles {
                     	if(line.contains("<TEXT>"))
                     		continue;  
                     	else
-                    		tempcontent.append(line);
+                    		tempcontent.append(line+" ");
                     	}                    
                     if(flag=="endtext")
                     {
@@ -187,7 +186,7 @@ public class IndexFiles {
                     	if(line.contains("<GRAPHIC>"))
                     		continue;  
                     	else
-                    		tempcontent.append(line);
+                    		tempcontent.append(line+" ");
                     	}                    
                     if(flag=="endgraphic")
                     {
@@ -199,8 +198,8 @@ public class IndexFiles {
                         }
                     if(flag=="enddoc")
                     {
-                    	if(HT==null)
-                	       HT="unkown";
+                    	//if(HT==null)
+                	     //  HT="unkown";
                     	if(PARENT==null)
                  	       PARENT="unkown";
                     	if(HEADER==null)
@@ -209,9 +208,11 @@ public class IndexFiles {
                  	       BYLINE="unkown";
                     	if(GRAPHIC==null)
                  	       GRAPHIC="unkown";
+                    	if(TEXT==null)
+                  	       TEXT="unkown";
                     	Document doc = new Document();
+                    	System.out.println("Adding document:"+DOCNO);
                     	doc.add(new StringField("DOCNO", DOCNO, Field.Store.YES)); 
-            			doc.add(new TextField("HT", HT, Field.Store.YES));
             			doc.add(new TextField("PARENT", PARENT, Field.Store.YES));
             			doc.add(new TextField("HEADER", HEADER, Field.Store.YES));
             			doc.add(new TextField("BYLINE", BYLINE, Field.Store.YES));
@@ -219,7 +220,6 @@ public class IndexFiles {
             			doc.add(new TextField("GRAPHIC", GRAPHIC, Field.Store.YES));
             			documents.add(doc);
             			DOCNO=null;
-            			HT=null;
             			PARENT=null;
             			HEADER=null;
             			BYLINE=null;
