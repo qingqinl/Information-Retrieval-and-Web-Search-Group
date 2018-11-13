@@ -3,7 +3,7 @@ package com.group.assignment;
 public class MyQuery {
 
 
-    public MyQuery(){
+    MyQuery(){
         this.Id = id+"";
         id++;
     }
@@ -20,7 +20,7 @@ public class MyQuery {
         return description;
     }
 
-    public void setDescription(String description) {
+    void setDescription(String description) {
         this.description = description;
     }
 
@@ -28,7 +28,7 @@ public class MyQuery {
         return narriative;
     }
 
-    public void setNarriative(String narriative) {
+    void setNarriative(String narriative) {
         this.narriative = narriative;
     }
 
@@ -36,8 +36,13 @@ public class MyQuery {
         return title;
     }
 
-    public void setTitle(String title) {
+    void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public String toString() {
+        return "ID " + Id + "\nTitle " + title + "\nDesc " + description + "\nnarr " + narriative;
     }
 
     private static int id = 1;
