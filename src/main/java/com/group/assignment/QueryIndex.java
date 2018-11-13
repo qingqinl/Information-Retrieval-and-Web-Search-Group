@@ -25,7 +25,7 @@ public class QueryIndex {
         Analyzer analyzer = new StandardAnalyzer();
 
         // Open the folder that contains our search index
-        Directory directory = FSDirectory.open(Paths.get(LuceneConstants.HOME_PATH + "index/"));
+        Directory directory = FSDirectory.open(Paths.get(LuceneConstants.INDEX_PATH));
 
         // create objects to read and search across the index
         DirectoryReader ireader = DirectoryReader.open(directory);
