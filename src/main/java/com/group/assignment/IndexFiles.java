@@ -8,7 +8,8 @@ import java.io.IOException;
 
 import java.util.ArrayList;
 import java.nio.file.*;
-import com.qingqinli.websearch.*;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -23,18 +24,27 @@ import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
  
-public class IndexFiles1 {
+public class IndexFiles {
 
 	// Directory where the search index will be saved
-	private static String INDEX_DIRECTORY = "C:\\Users\\winnie\\Desktop\\index";
+	//private static String INDEX_DIRECTORY = "C:\\Users\\winnie\\Desktop\\index";
 
-	public static void main(String[] args) throws IOException {
+	public static void createIndex(String[] args) throws IOException {
 		//File files = new File("C:\\Users\\winnie\\Desktop\\data");
-		File files = new File("C:\\Users\\winnie\\Documents\\information retrieval and web search\\Assignment Two\\Assignment Two\\data\\la");
-		File[] fs = files.listFiles();
-		String[] fileNames = new String[fs.length];
-		for(int i = 0; i < fs.length; i++) {
-			fileNames[i] = fs[i].getPath();
+		//File files = new File(LuceneConstants.INDEX_PATH);
+		List<File> fs = Files.walk(Paths.get(LuceneConstants.DOCUMENT_PATH))
+				.filter(Files::isRegularFile)
+				.map(Path::toFile)
+				.filter(file -> {
+					String name = file.getName();
+					return !name.contains("read") && !name.contains("READ") && !name.contains("Read")&&
+							!name.equals("fbisdtd.dtd") && !name.equals("fr94dtd") && !name.equals("ftdtd") && !name.equals("latimesdtd.dtd");
+				})
+				.collect(Collectors.toList());
+		//File[] fs = files.listFiles();
+		String[] fileNames = new String[fs.size()];
+		for(int i = 0; i < fs.size(); i++) {
+			fileNames[i] = fs.get(i).getPath();
 			System.out.println(fileNames[i]);
 		}
 		args = fileNames;
@@ -51,7 +61,7 @@ public class IndexFiles1 {
 
 		
 		// Open the directory that contains the search index
-		Directory directory = FSDirectory.open(Paths.get(INDEX_DIRECTORY));
+		Directory directory = FSDirectory.open(Paths.get(LuceneConstants.INDEX_PATH));
 		//BM25Similarity bm25Similarity = new BM25Similarity();
 		//IndexWriterConfig config = new IndexWriterConfig(new SynonymAnalyzer(new SimpleSynonymEngine()));
 		IndexWriterConfig config = new IndexWriterConfig(analyzer);
@@ -201,15 +211,15 @@ public class IndexFiles1 {
                     	//if(HT==null)
                 	     //  HT="unkown";
                     	if(PARENT==null)
-                 	       PARENT="unkown";
+                 	       PARENT="";
                     	if(HEADER==null)
-                  	       HEADER="unkown";
+                  	       HEADER="";
                     	if(BYLINE==null)
-                 	       BYLINE="unkown";
+                 	       BYLINE="";
                     	if(GRAPHIC==null)
-                 	       GRAPHIC="unkown";
+                 	       GRAPHIC="";
                     	if(TEXT==null)
-                  	       TEXT="unkown";
+                  	       TEXT="";
                     	Document doc = new Document();
                     	System.out.println("Adding document:"+DOCNO);
                     	doc.add(new StringField("DOCNO", DOCNO, Field.Store.YES)); 
