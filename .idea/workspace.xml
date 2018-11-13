@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6fe3755a-3622-4929-b9a4-3d2f23cd4ea8" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/group/assignment/IndexFiles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/group/assignment/IndexFiles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/group/assignment/LuceneConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/group/assignment/LuceneConstants.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/group/assignment/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/group/assignment/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/group/assignment/MyQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/group/assignment/MyQuery.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/group/assignment/QueryIndex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/group/assignment/QueryIndex.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -26,13 +25,13 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1547" />
+          <entry key="java" value="1550" />
           <entry key="xml" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1547" />
+          <entry key="JAVA" value="1550" />
           <entry key="XML" value="3" />
         </counts>
       </usages-collector>
@@ -63,11 +62,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
-              <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+              <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -78,8 +77,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/LuceneConstants.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="22" column="75" selection-start-line="22" selection-start-column="75" selection-end-line="22" selection-end-column="75" />
+            <state relative-caret-position="30">
+              <caret line="2" column="3" lean-forward="true" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -87,8 +86,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/IndexFiles.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="341">
-              <caret line="234" column="36" lean-forward="true" selection-start-line="234" selection-start-column="36" selection-end-line="234" selection-end-column="36" />
+            <state relative-caret-position="281">
+              <caret line="224" column="52" lean-forward="true" selection-start-line="224" selection-start-column="48" selection-end-line="224" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -96,11 +95,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/QueryIndex.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
-              <caret line="56" selection-start-line="56" selection-end-line="56" />
+            <state relative-caret-position="398">
+              <caret line="64" column="73" selection-start-line="64" selection-start-column="73" selection-end-line="64" selection-end-column="73" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -155,10 +154,10 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/group/assignment/IndexFiles1.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/group/assignment/MyQuery.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/group/assignment/IndexFiles.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/group/assignment/LuceneConstants.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/group/assignment/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/group/assignment/IndexFiles.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/group/assignment/QueryIndex.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/group/assignment/Main.java" />
       </list>
     </option>
   </component>
@@ -242,7 +241,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542150486562" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1542151815050" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
   </component>
@@ -293,7 +292,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15628000" />
+    <option name="totallyTimeSpent" value="16977000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -354,23 +353,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/LuceneConstants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="22" column="75" selection-start-line="22" selection-start-column="75" selection-end-line="22" selection-end-column="75" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/MyQuery.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="615">
@@ -396,10 +378,17 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/LuceneConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="3" lean-forward="true" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/IndexFiles.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="234" column="36" lean-forward="true" selection-start-line="234" selection-start-column="36" selection-end-line="234" selection-end-column="36" />
+        <state relative-caret-position="281">
+          <caret line="224" column="52" lean-forward="true" selection-start-line="224" selection-start-column="48" selection-end-line="224" selection-end-column="55" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -408,8 +397,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/QueryIndex.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
+        <state relative-caret-position="398">
+          <caret line="64" column="73" selection-start-line="64" selection-start-column="73" selection-end-line="64" selection-end-column="73" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

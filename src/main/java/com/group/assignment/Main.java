@@ -14,7 +14,7 @@ public class Main{
     public static void main(String[] args) throws IOException {
        // IndexFiles.createIndex(args);
           //  QueryIndex.testGetAllQueries();
-        //    IndexFiles.createIndex(args);
+            IndexFiles.createIndex(args);
         try {
             QueryIndex.query();
         } catch (ParseException e) {

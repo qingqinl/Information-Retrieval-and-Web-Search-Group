@@ -54,7 +54,7 @@ public class QueryIndex {
             // BooleanQuery.Builder query = new BooleanQuery.Builder();
             //Query term = new TermQuery(new Term("W", myQuery.getW()));
             //query.add(new BooleanClause(term, BooleanClause.Occur.SHOULD));
-            Query query = parser.parse(QueryParser.escape(myQuery.getDescription()+myQuery.getNarriative()+myQuery.getDescription()));
+            Query query = parser.parse(QueryParser.escape(myQuery.getDescription()+myQuery.getNarriative()+myQuery.getTitle()));
             ScoreDoc[] hits = isearcher.search(query,MAX_RESULTS).scoreDocs;
 
             //   System.out.println(myQuery.getI());
@@ -62,7 +62,7 @@ public class QueryIndex {
                 Document hitDoc = isearcher.doc(hits[i].doc);
                 int order = i + 1;
                 // System.out.println(myQuery.getI() + " Q0 " + hitDoc.get("I")  +" " +order+" "+ hits[i].score + " STANDARD");
-                results.add(myQuery.getId() + " Q0 " + hitDoc.get("I")  +" " +order+" "+ hits[i].score + " STANDARD");
+                results.add(myQuery.getId() + " Q0 " + hitDoc.get("DOCNO")  +" " +order+" "+ hits[i].score + " STANDARD");
 
                 //  System.out.println(myQuery.getI() + " Q0 " + hitDoc.get("I")  +" " +order+" "+ hits[i].score + " STANDARD");
 
