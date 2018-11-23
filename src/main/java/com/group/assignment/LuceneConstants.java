@@ -17,8 +17,8 @@ public class LuceneConstants {
 
 
     static final int MAX_SEARCH = 10;
-    static final String HOME_PATH = System.getProperty("user.home")+"/websearch/";
-    static final String DOCUMENT_PATH = System.getProperty("user.home")+"/websearch/groupwork/news/assignment2/assign2";
-    static final String INDEX_PATH = System.getProperty("user.home")+"/websearch/groupwork/news/assignment2/index";
-    static final String SEARCH_DIRECTORY=System.getProperty("user.home")+"/websearch/groupwork/query-doc";
+    static final String HOME_PATH = System.getProperty("user.home")+"/lucene_data";
+    static final String DOCUMENT_PATH = System.getProperty("user.home")+"/lucene_data/collection";
+    static final String INDEX_PATH = System.getProperty("user.home")+"/lucene_data/index";
+    static final String SEARCH_DIRECTORY = System.getProperty("user.home")+"/lucene_data/query-doc/topics.401-450";
 }

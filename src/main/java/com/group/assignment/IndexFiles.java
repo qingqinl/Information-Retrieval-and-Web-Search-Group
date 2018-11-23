@@ -18,8 +18,6 @@ import org.apache.lucene.document.Field;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.index.IndexWriter;
-import org.apache.lucene.search.similarities.PerFieldSimilarityWrapper;
-import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.index.IndexWriterConfig;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
@@ -68,8 +66,8 @@ public class IndexFiles {
 		config.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
 		//config.setSimilarity(bm25Similarity);
 		
-		IndexWriter iwriter = new IndexWriter(directory, config);  
-		
+		IndexWriter iwriter = new IndexWriter(directory, config);
+
 		for (String arg : args) {
 			// Load the contents of the file
 			System.out.printf("Indexing \"%s\"\n", arg);
@@ -221,7 +219,7 @@ public class IndexFiles {
                     	if(TEXT==null)
                   	       TEXT="";
                     	Document doc = new Document();
-                    	System.out.println("Adding document:"+DOCNO);
+                    	//System.out.println("Adding document:"+DOCNO);
                     	doc.add(new StringField("DOCNO", DOCNO, Field.Store.YES));
 //            			doc.add(new TextField("PARENT", PARENT, Field.Store.YES));
 //            			doc.add(new TextField("HEADER", HEADER, Field.Store.YES));
@@ -236,10 +234,12 @@ public class IndexFiles {
             			BYLINE=null;
             			TEXT=null;
             			GRAPHIC=null;
+						iwriter.addDocuments(documents);
+						documents = new ArrayList<Document>();
                     }
                     }  	
 	            // Always close files.
-	            bufferedReader.close();         
+	            bufferedReader.close();
 	            }
 	        catch(FileNotFoundException ex) {
 	            System.out.println(
@@ -252,11 +252,11 @@ public class IndexFiles {
 	                + fileName + "'");                  
 	            // Or we could just do this: 
 	            // ex.printStackTrace();
-	        }	
+	        }
 		}
 
 		// Write all the documents in the linked list to the search index
-		iwriter.addDocuments(documents);
+		//iwriter.addDocuments(documents);
 
 		// Commit everything and close
 		iwriter.close();

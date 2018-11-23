@@ -4,6 +4,7 @@ import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.queryparser.surround.query.SrndPrefixQuery;
@@ -49,7 +50,7 @@ public class QueryIndex {
         similarity = new BM25Similarity();
 
         isearcher.setSimilarity(similarity);
-        QueryParser parser = new QueryParser("All", analyzer);
+        QueryParser parser = new QueryParser("All", analyzer);//MultiFieldQueryParser(new String[] {"All", "HEADER"}, analyzer)
         for(MyQuery myQuery : queries){
             // BooleanQuery.Builder query = new BooleanQuery.Builder();
             //Query term = new TermQuery(new Term("W", myQuery.getW()));
@@ -135,7 +136,7 @@ public class QueryIndex {
 
     private static void wirteToFile(String myrel, List<String> lines) throws IOException {
         //lines.stream().map()
-        String file = LuceneConstants.HOME_PATH+"/"+"myrel";
+        String file = LuceneConstants.HOME_PATH+"/"+"/result/myrel";
         Files.deleteIfExists(Paths.get(file));
         //System.out.println(lines.size());
         lines.forEach((line) ->{
