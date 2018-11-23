@@ -27,13 +27,14 @@ import java.util.List;
 
 public class QueryIndex {
     // Limit the number of search results we get
-    private static int MAX_RESULTS = 50;
+    private static int MAX_RESULTS = 2000;
 
     public static void query() throws IOException, ParseException {
         // Open the folder that contains our search index
         Directory directory = FSDirectory.open(Paths.get(LuceneConstants.INDEX_PATH));
         List<String> lines = Files.readAllLines(Paths.get(LuceneConstants.SEARCH_DIRECTORY));
         List<MyQuery> queries = getAllQueries(lines);
+        queries = queries.subList(0,25);
         //queries.forEach(System.out::println);
 
         // create objects to read and search across the index
@@ -63,7 +64,7 @@ public class QueryIndex {
                 Document hitDoc = isearcher.doc(hits[i].doc);
                 int order = i + 1;
                 // System.out.println(myQuery.getI() + " Q0 " + hitDoc.get("I")  +" " +order+" "+ hits[i].score + " STANDARD");
-                results.add(myQuery.getId() + " Q0 " + hitDoc.get("DOCNO")  +" " +order+" "+ hits[i].score + " STANDARD");
+                results.add((Integer.valueOf(myQuery.getId())+400) + " Q0 " + hitDoc.get("DOCNO")  +" " +order+" "+ hits[i].score + " STANDARD");
 
                 //  System.out.println(myQuery.getI() + " Q0 " + hitDoc.get("I")  +" " +order+" "+ hits[i].score + " STANDARD");
 
