@@ -1,16 +1,17 @@
 package com.group.assignment;
 
 import org.apache.lucene.analysis.Analyzer;
+import org.apache.lucene.analysis.en.EnglishAnalyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
+import org.apache.lucene.index.Term;
 import org.apache.lucene.queryparser.classic.MultiFieldQueryParser;
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.apache.lucene.queryparser.classic.QueryParser;
+import org.apache.lucene.queryparser.classic.QueryParserBase;
 import org.apache.lucene.queryparser.surround.query.SrndPrefixQuery;
-import org.apache.lucene.search.IndexSearcher;
-import org.apache.lucene.search.Query;
-import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.*;
 import org.apache.lucene.search.similarities.BM25Similarity;
 import org.apache.lucene.search.similarities.ClassicSimilarity;
 import org.apache.lucene.search.similarities.Similarity;
@@ -44,20 +45,36 @@ public class QueryIndex {
         // builder class for creating our query
 
         List<String> results = new ArrayList<>();
-        Analyzer analyzer = new StandardAnalyzer();
+        Analyzer analyzer = new EnglishAnalyzer();
 
         Similarity similarity;
 
         similarity = new BM25Similarity();
 
         isearcher.setSimilarity(similarity);
-        QueryParser parser = new QueryParser("All", analyzer);//MultiFieldQueryParser(new String[] {"All", "HEADER"}, analyzer)
+        QueryParser parser = new QueryParser("All", analyzer);
+        QueryParser parser1 = new QueryParser("HEADER",analyzer);//MultiFieldQueryParser(new String[] {"All", "HEADER"}, analyzer)
         for(MyQuery myQuery : queries){
-            // BooleanQuery.Builder query = new BooleanQuery.Builder();
-            //Query term = new TermQuery(new Term("W", myQuery.getW()));
-            //query.add(new BooleanClause(term, BooleanClause.Occur.SHOULD));
+            BooleanQuery.Builder builder = new BooleanQuery.Builder();
+           // Query term = new BooleanQuery(new Term("All", );
+          //  Query term1 = new TermQuery(new Term("All", QueryParser.escape(myQuery.getDescription()+myQuery.getNarriative()+myQuery.getTitle())));
             Query query = parser.parse(QueryParser.escape(myQuery.getDescription()+myQuery.getNarriative()+myQuery.getTitle()));
-            ScoreDoc[] hits = isearcher.search(query,MAX_RESULTS).scoreDocs;
+            BoostQuery boostQuery = new BoostQuery(parser.parse(QueryParser.escape(myQuery.getTitle())),2.5f);
+            builder.add(new BooleanClause(query, BooleanClause.Occur.MUST));
+            builder.add(new BooleanClause(boostQuery,BooleanClause.Occur.SHOULD));
+
+
+         //   query1.add(new BooleanClause(term1, BooleanClause.Occur.MUST));
+          //  Query term1
+
+
+          //  Query query = parser.parse(QueryParser.escape(myQuery.getDescription()+myQuery.getNarriative()+myQuery.getTitle()));
+            //query1.add(query)
+         //   parser.
+
+
+            ScoreDoc[] hits = isearcher.search(builder.build(),MAX_RESULTS).scoreDocs;
+            System.out.println(hits.length);
 
             //   System.out.println(myQuery.getI());
             for (int i = 0; i < hits.length; i++) {
