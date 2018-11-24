@@ -7,7 +7,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/java/com/group/assignment/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/group/assignment/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/group/assignment/QueryIndex.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/group/assignment/QueryIndex.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/target/classes/com/group/assignment/IndexFiles.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/group/assignment/IndexFiles.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/group/assignment/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/group/assignment/Main.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/group/assignment/QueryIndex.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/group/assignment/QueryIndex.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -28,13 +28,13 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="2193" />
+          <entry key="java" value="2232" />
           <entry key="xml" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2193" />
+          <entry key="JAVA" value="2232" />
           <entry key="XML" value="6" />
         </counts>
       </usages-collector>
@@ -67,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="165">
-              <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+              <caret line="13" column="10" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -88,17 +88,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/IndexFiles.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
-              <caret line="224" column="24" selection-start-line="224" selection-start-column="24" selection-end-line="224" selection-end-column="24" />
+            <state relative-caret-position="356">
+              <caret line="64" column="68" selection-start-line="64" selection-start-column="68" selection-end-line="64" selection-end-column="68" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/QueryIndex.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="90">
-              <caret line="30" column="38" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
+              <caret line="51" column="41" selection-start-line="51" selection-start-column="41" selection-end-line="51" selection-end-column="41" />
             </state>
           </provider>
         </entry>
@@ -133,9 +133,9 @@
         <option value="$PROJECT_DIR$/src/main/java/com/group/assignment/MyQuery.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/group/assignment/LuceneConstants.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/group/assignment/QueryIndex.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/group/assignment/IndexFiles.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/group/assignment/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/group/assignment/QueryIndex.java" />
       </list>
     </option>
   </component>
@@ -238,7 +238,7 @@
               <item name="Maven: org.apache.lucene:lucene-core:7.5.0" type="70bed36:NamedLibraryElementNode" />
               <item name="lucene-core-7.5.0.jar" type="462c0819:PsiDirectoryNode" />
               <item name="lucene" type="462c0819:PsiDirectoryNode" />
-              <item name="analysis" type="462c0819:PsiDirectoryNode" />
+              <item name="geo" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -250,7 +250,7 @@
     <property name="SearchEverywhereHistoryKey" value="format&#9;ACTION&#9;ReformatCode" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543065092182" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1543074938100" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Project" />
@@ -365,12 +365,12 @@
       <option name="presentableId" value="Default" />
       <updated>1541887737721</updated>
       <workItem from="1541887741301" duration="1413000" />
-      <workItem from="1543012250464" duration="13778000" />
+      <workItem from="1543012250464" duration="15828000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36594000" />
+    <option name="totallyTimeSpent" value="38644000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -449,6 +449,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/IndexFiles.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="356">
+          <caret line="64" column="68" selection-start-line="64" selection-start-column="68" selection-end-line="64" selection-end-column="68" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/LuceneConstants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
@@ -456,24 +463,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/QueryIndex.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="30" column="38" selection-start-line="30" selection-start-column="38" selection-end-line="30" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/IndexFiles.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="224" column="24" selection-start-line="224" selection-start-column="24" selection-end-line="224" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
-          <caret line="13" column="6" selection-start-line="13" selection-start-column="6" selection-end-line="13" selection-end-column="6" />
+          <caret line="13" column="10" selection-start-line="13" selection-start-column="10" selection-end-line="13" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/group/assignment/QueryIndex.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="51" column="41" selection-start-line="51" selection-start-column="41" selection-end-line="51" selection-end-column="41" />
         </state>
       </provider>
     </entry>

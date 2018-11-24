@@ -35,7 +35,7 @@ public class QueryIndex {
         Directory directory = FSDirectory.open(Paths.get(LuceneConstants.INDEX_PATH));
         List<String> lines = Files.readAllLines(Paths.get(LuceneConstants.SEARCH_DIRECTORY));
         List<MyQuery> queries = getAllQueries(lines);
-        queries = queries.subList(0,25);
+    //    queries = queries.subList(0,25);
         //queries.forEach(System.out::println);
 
         // create objects to read and search across the index
@@ -49,7 +49,7 @@ public class QueryIndex {
 
         Similarity similarity;
 
-        similarity = new BM25Similarity();
+        similarity = new BM25Similarity(0.8f,0.8f);
 
         isearcher.setSimilarity(similarity);
         QueryParser parser = new QueryParser("All", analyzer);
@@ -60,7 +60,7 @@ public class QueryIndex {
           //  Query term1 = new TermQuery(new Term("All", QueryParser.escape(myQuery.getDescription()+myQuery.getNarriative()+myQuery.getTitle())));
             Query query = parser.parse(QueryParser.escape(myQuery.getDescription()+myQuery.getNarriative()+myQuery.getTitle()));
             BoostQuery boostQuery = new BoostQuery(parser.parse(QueryParser.escape(myQuery.getTitle())),2.5f);
-            builder.add(new BooleanClause(query, BooleanClause.Occur.MUST));
+            builder.add(new BooleanClause(query, BooleanClause.Occur.SHOULD));
             builder.add(new BooleanClause(boostQuery,BooleanClause.Occur.SHOULD));
 
 

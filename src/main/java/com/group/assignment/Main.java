@@ -11,7 +11,7 @@ public class Main{
       //  String test = "<helf>hello<dfdf>";
      //   System.out.println(test.replaceAll("<.*?>",""));
 
-            IndexFiles.createIndex(args);
+        //    IndexFiles.createIndex(args);
         try {
             QueryIndex.query();
         } catch (ParseException e) {

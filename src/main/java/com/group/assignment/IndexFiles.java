@@ -62,7 +62,7 @@ public class IndexFiles {
 
         // Open the directory that contains the search index
         Directory directory = FSDirectory.open(Paths.get(LuceneConstants.INDEX_PATH));
-        BM25Similarity bm25Similarity = new BM25Similarity();
+        BM25Similarity bm25Similarity = new BM25Similarity(0.8f,0.8f);
         //IndexWriterConfig config = new IndexWriterConfig(new SynonymAnalyzer(new SimpleSynonymEngine()));
         IndexWriterConfig config = new IndexWriterConfig(analyzer);
         config.setOpenMode(IndexWriterConfig.OpenMode.CREATE);
