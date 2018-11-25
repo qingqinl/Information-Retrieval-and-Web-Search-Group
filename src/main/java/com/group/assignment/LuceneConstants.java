@@ -5,7 +5,7 @@ package com.group.assignment;
  *
  * Created by baolei chen on 2018/11/11.
  */
-public class LuceneConstants {
+class LuceneConstants {
 
     static final String DOCNO = "DOCNO";
     static final String HT = "HT";
@@ -14,6 +14,8 @@ public class LuceneConstants {
     static final String BYLINE = "BYLINE";
     static final String TEXT = "TEXT";
     static final String GRAPHIC = "GRAPHIC";
+
+    static final int MAX_RESULTS = 2000;
 
 
     static final int MAX_SEARCH = 10;

@@ -89,6 +89,11 @@ public class IndexFiles {
                     if (line.isEmpty() || line.contains("<P>") || line.contains("</P>")) {
                         continue;
                     }
+//                    if (line.isEmpty() || line.contains("<!--") || line.contains("-->") || line.contains("<P>") || line.contains("</P>")) {
+//                        continue;
+//                    }
+                    if(line.contains("<TI>"))
+                        line += " "+ line+" "+line;
                     if (line.contains("<DOC>"))
                         flag = "doc";
                     if (line.contains("</DOC>"))
@@ -218,11 +223,11 @@ public class IndexFiles {
 //            			doc.add(new TextField("BYLINE", BYLINE, Field.Store.YES));
 //            			doc.add(new TextField("TEXT", TEXT, Field.Store.YES));
 //            			doc.add(new TextField("GRAPHIC", GRAPHIC, Field.Store.YES));
-                     //   PARENT = PARENT.replaceAll("<.*?>"," ");
-                     //   HEADER = HEADER.replaceAll("<.*?>"," ");
-                     //   BYLINE = BYLINE.replaceAll("<.*?>"," ");
-                     //   TEXT = TEXT.replaceAll("<.*?>"," ");
-                      //  GRAPHIC = GRAPHIC.replaceAll("<.*?>"," ");
+                        PARENT = PARENT.replaceAll("[<>\\-]"," ");
+                        HEADER = HEADER.replaceAll("[<>\\-]"," ");
+                        BYLINE = BYLINE.replaceAll("[<>\\-]"," ");
+                        TEXT = TEXT.replaceAll("[<>\\-]"," ");
+                        GRAPHIC = GRAPHIC.replaceAll("[<>\\-]"," ");
                         doc.add(new TextField("All", PARENT + HEADER + BYLINE + TEXT + GRAPHIC, Field.Store.YES));
                         documents.add(doc);
                         DOCNO = null;

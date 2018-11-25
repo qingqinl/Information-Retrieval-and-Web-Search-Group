@@ -17,6 +17,7 @@ import org.apache.lucene.search.similarities.ClassicSimilarity;
 import org.apache.lucene.search.similarities.Similarity;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
+import org.apache.lucene.util.Version;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -28,9 +29,9 @@ import java.util.List;
 
 public class QueryIndex {
     // Limit the number of search results we get
-    private static int MAX_RESULTS = 2000;
+   // private static int MAX_RESULTS = 2000;
 
-    public static void query() throws IOException, ParseException {
+    static void query() throws IOException, ParseException {
         // Open the folder that contains our search index
         Directory directory = FSDirectory.open(Paths.get(LuceneConstants.INDEX_PATH));
         List<String> lines = Files.readAllLines(Paths.get(LuceneConstants.SEARCH_DIRECTORY));
@@ -47,20 +48,28 @@ public class QueryIndex {
         List<String> results = new ArrayList<>();
         Analyzer analyzer = new EnglishAnalyzer();
 
+
         Similarity similarity;
 
         similarity = new BM25Similarity(0.8f,0.8f);
 
         isearcher.setSimilarity(similarity);
+
         QueryParser parser = new QueryParser("All", analyzer);
         QueryParser parser1 = new QueryParser("HEADER",analyzer);//MultiFieldQueryParser(new String[] {"All", "HEADER"}, analyzer)
+       // QParser
         for(MyQuery myQuery : queries){
             BooleanQuery.Builder builder = new BooleanQuery.Builder();
            // Query term = new BooleanQuery(new Term("All", );
           //  Query term1 = new TermQuery(new Term("All", QueryParser.escape(myQuery.getDescription()+myQuery.getNarriative()+myQuery.getTitle())));
-            Query query = parser.parse(QueryParser.escape(myQuery.getDescription()+myQuery.getNarriative()+myQuery.getTitle()));
-            BoostQuery boostQuery = new BoostQuery(parser.parse(QueryParser.escape(myQuery.getTitle())),2.5f);
+            Query query = parser.parse(QueryParser.escape(replace(myQuery.getDescription()+myQuery.getNarriative()+myQuery.getTitle())));
+            Query query1 = parser.parse(QueryParser.escape(myQuery.getDescription()));
+            Query query2 = new BoostQuery(parser.parse(QueryParser.escape(myQuery.getDescription())),3.5f);
+            BoostQuery boostQuery = new BoostQuery(parser.parse(QueryParser.escape(replace(myQuery.getTitle()))),3.90f);
+
             builder.add(new BooleanClause(query, BooleanClause.Occur.SHOULD));
+           // builder.add(new BooleanClause(query1,BooleanClause.Occur.SHOULD));
+          //  builder.add(new BooleanClause(query2, BooleanClause.Occur.SHOULD));
             builder.add(new BooleanClause(boostQuery,BooleanClause.Occur.SHOULD));
 
 
@@ -73,7 +82,7 @@ public class QueryIndex {
          //   parser.
 
 
-            ScoreDoc[] hits = isearcher.search(builder.build(),MAX_RESULTS).scoreDocs;
+            ScoreDoc[] hits = isearcher.search(builder.build(),LuceneConstants.MAX_RESULTS).scoreDocs;
             System.out.println(hits.length);
 
             //   System.out.println(myQuery.getI());
@@ -97,9 +106,19 @@ public class QueryIndex {
         }
 
 
+        private static String replace(String ori){
+        String[] nouse = {"document","relevant","discuss",
+               "describing","information"};
+        for(String r : nouse){
+            ori = ori.replaceAll(r,"");
+        }
+        return ori;
+        }
 
 
-    public static List<MyQuery> getAllQueries(List<String> lines) {
+
+
+    private static List<MyQuery> getAllQueries(List<String> lines) {
         //lines.forEach(System.out::println);
         List<MyQuery> queries = new ArrayList<>();
         StringBuilder title = new StringBuilder();
@@ -154,7 +173,7 @@ public class QueryIndex {
 
     private static void wirteToFile(String myrel, List<String> lines) throws IOException {
         //lines.stream().map()
-        String file = LuceneConstants.HOME_PATH+"/"+"/result/myrel";
+        String file = LuceneConstants.HOME_PATH+"/"+"/result/"+myrel;
         Files.deleteIfExists(Paths.get(file));
         //System.out.println(lines.size());
         lines.forEach((line) ->{
