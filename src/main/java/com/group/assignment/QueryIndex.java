@@ -2,6 +2,7 @@ package com.group.assignment;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.en.EnglishAnalyzer;
+import org.apache.lucene.analysis.miscellaneous.PerFieldAnalyzerWrapper;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
 import org.apache.lucene.document.Document;
 import org.apache.lucene.index.DirectoryReader;
@@ -31,6 +32,25 @@ public class QueryIndex {
     // Limit the number of search results we get
    // private static int MAX_RESULTS = 2000;
 
+//    public static   String queryStopWords(String query) {
+//        String[] allStopWords =  new String[]{"document","relevant","discuss",
+//                "describing","information"};
+//        query = query.toLowerCase();
+//        for (String stopword : allStopWords) {
+//            query = query.replaceAll("\\b"+stopword+"\\b", "");
+//        }
+//        query = query.replace("(", "");
+//        query = query.replace(")", "");
+//        query = query.replace("?", "");
+//        query = query.replace(",", "");
+//        query = query.replace("\"", "");
+//        query = query.replace(".", "");
+//        query = query.replace(":", "");
+//        query = query.replace("   ", " ");
+//        query = query.replace("  ", " ");
+//        return query;
+//    }
+
     static void query() throws IOException, ParseException {
         // Open the folder that contains our search index
         Directory directory = FSDirectory.open(Paths.get(LuceneConstants.INDEX_PATH));
@@ -46,7 +66,9 @@ public class QueryIndex {
         // builder class for creating our query
 
         List<String> results = new ArrayList<>();
+        //Analyzer analyzer = new PerFieldAnalyzerWrapper(new EnglishAnalyzer());
         Analyzer analyzer = new EnglishAnalyzer();
+
 
 
         Similarity similarity;
@@ -57,20 +79,31 @@ public class QueryIndex {
 
         QueryParser parser = new QueryParser("All", analyzer);
         QueryParser parser1 = new QueryParser("HEADER",analyzer);//MultiFieldQueryParser(new String[] {"All", "HEADER"}, analyzer)
+
        // QParser
         for(MyQuery myQuery : queries){
+            PhraseQuery.Builder titleBuilder = new PhraseQuery.Builder();
             BooleanQuery.Builder builder = new BooleanQuery.Builder();
+         //   PhraseQuery.Builder builder = new PhraseQuery.Builder();
            // Query term = new BooleanQuery(new Term("All", );
           //  Query term1 = new TermQuery(new Term("All", QueryParser.escape(myQuery.getDescription()+myQuery.getNarriative()+myQuery.getTitle())));
             Query query = parser.parse(QueryParser.escape(replace(myQuery.getDescription()+myQuery.getNarriative()+myQuery.getTitle())));
+            String[] titles = QueryParser.escape(replace(myQuery.getTitle())).split(" ");
+            int k = 0;
+            for(String title : titles){
+
+                titleBuilder.add(new Term("All",title.trim()),k);
+                k++;
+            }
             Query query1 = parser.parse(QueryParser.escape(myQuery.getDescription()));
             Query query2 = new BoostQuery(parser.parse(QueryParser.escape(myQuery.getDescription())),3.5f);
-            BoostQuery boostQuery = new BoostQuery(parser.parse(QueryParser.escape(replace(myQuery.getTitle()))),3.90f);
-
+            BoostQuery boostQuery = new BoostQuery(parser.parse(QueryParser.escape(replace(myQuery.getTitle()))),4.45f); //3.95
+            BoostQuery boostQuery1 = new BoostQuery(titleBuilder.build(),1.5f); //
             builder.add(new BooleanClause(query, BooleanClause.Occur.SHOULD));
            // builder.add(new BooleanClause(query1,BooleanClause.Occur.SHOULD));
           //  builder.add(new BooleanClause(query2, BooleanClause.Occur.SHOULD));
             builder.add(new BooleanClause(boostQuery,BooleanClause.Occur.SHOULD));
+            builder.add(new BooleanClause(boostQuery1,BooleanClause.Occur.SHOULD));
 
 
          //   query1.add(new BooleanClause(term1, BooleanClause.Occur.MUST));
@@ -139,7 +172,7 @@ public class QueryIndex {
                 narr = new StringBuilder();
             }else if(line.contains("<title>")){
                 title.append(line.replace("<title>", "").trim()).append("\n");
-
+              //  title.append(line.replace("<title>", "").trim()).append("\n");
             }else if(line.contains("<desc>")){
                 current = desc;
             }else if(line.contains("<narr>")){

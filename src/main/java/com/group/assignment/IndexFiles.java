@@ -85,15 +85,22 @@ public class IndexFiles {
                 // Always wrap FileReader in BufferedReader.
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
                 StringBuffer tempcontent = new StringBuffer("");
+                StringBuilder allLines = new StringBuilder();
                 while ((line = bufferedReader.readLine()) != null) {
-                    if (line.isEmpty() || line.contains("<P>") || line.contains("</P>")) {
+        //            if (line.isEmpty() || line.contains("<P>") || line.contains("</P>")) {
+          //              continue;
+            //        }
+                    allLines.append(line).append(" ");
+                    if(line.isEmpty())
                         continue;
-                    }
+              //      allLines.append(line).append(" ");
 //                    if (line.isEmpty() || line.contains("<!--") || line.contains("-->") || line.contains("<P>") || line.contains("</P>")) {
 //                        continue;
 //                    }
-                    if(line.contains("<TI>"))
-                        line += " "+ line+" "+line;
+                    if(line.contains("<TI>")) {
+                        line +=  line +  line;
+                        allLines.append(line).append(line);
+                    }
                     if (line.contains("<DOC>"))
                         flag = "doc";
                     if (line.contains("</DOC>"))
@@ -228,7 +235,9 @@ public class IndexFiles {
                         BYLINE = BYLINE.replaceAll("[<>\\-]"," ");
                         TEXT = TEXT.replaceAll("[<>\\-]"," ");
                         GRAPHIC = GRAPHIC.replaceAll("[<>\\-]"," ");
-                        doc.add(new TextField("All", PARENT + HEADER + BYLINE + TEXT + GRAPHIC, Field.Store.YES));
+                   //     doc.add(new TextField("All", PARENT + HEADER + BYLINE + TEXT + GRAPHIC, Field.Store.YES));
+                        doc.add(new TextField("All",allLines.toString(), Field.Store.YES));
+                        allLines = new StringBuilder();
                         documents.add(doc);
                         DOCNO = null;
                         PARENT = null;

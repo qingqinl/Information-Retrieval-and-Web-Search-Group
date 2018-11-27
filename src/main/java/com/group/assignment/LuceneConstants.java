@@ -15,7 +15,7 @@ class LuceneConstants {
     static final String TEXT = "TEXT";
     static final String GRAPHIC = "GRAPHIC";
 
-    static final int MAX_RESULTS = 2000;
+    static final int MAX_RESULTS = 1000;
 
 
     static final int MAX_SEARCH = 10;
