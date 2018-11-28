@@ -24,9 +24,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class QueryIndex {
     // Limit the number of search results we get
@@ -78,32 +78,45 @@ public class QueryIndex {
         isearcher.setSimilarity(similarity);
 
         QueryParser parser = new QueryParser("All", analyzer);
-        QueryParser parser1 = new QueryParser("HEADER",analyzer);//MultiFieldQueryParser(new String[] {"All", "HEADER"}, analyzer)
+   //     QueryParser parser1 = new QueryParser("HEADER",analyzer);//MultiFieldQueryParser(new String[] {"All", "HEADER"}, analyzer)
 
        // QParser
         for(MyQuery myQuery : queries){
-            PhraseQuery.Builder titleBuilder = new PhraseQuery.Builder();
+            PhraseQuery.Builder mostFBuilder = new PhraseQuery.Builder();
+            PhraseQuery.Builder secodeFBuilder = new PhraseQuery.Builder();
             BooleanQuery.Builder builder = new BooleanQuery.Builder();
          //   PhraseQuery.Builder builder = new PhraseQuery.Builder();
            // Query term = new BooleanQuery(new Term("All", );
           //  Query term1 = new TermQuery(new Term("All", QueryParser.escape(myQuery.getDescription()+myQuery.getNarriative()+myQuery.getTitle())));
-            Query query = parser.parse(QueryParser.escape(replace(myQuery.getDescription()+myQuery.getNarriative()+myQuery.getTitle())));
+            String cleanString = QueryParser.escape(replace(myQuery.getDescription()+myQuery.getNarriative()+myQuery.getTitle()));
+            Query query = parser.parse(cleanString);
             String[] titles = QueryParser.escape(replace(myQuery.getTitle())).split(" ");
             int k = 0;
-            for(String title : titles){
+            List<String> list = wordsCount(replace(myQuery.getDescription()+myQuery.getNarriative()+myQuery.getTitle()), 0);
+            for(String title : list){
 
-                titleBuilder.add(new Term("All",title.trim()),k);
+                mostFBuilder.add(new Term("All",title),k);
                 k++;
             }
-            Query query1 = parser.parse(QueryParser.escape(myQuery.getDescription()));
-            Query query2 = new BoostQuery(parser.parse(QueryParser.escape(myQuery.getDescription())),3.5f);
+
+            List<String> list1 = moreThan(replace(myQuery.getDescription()+myQuery.getNarriative()+myQuery.getTitle()), 10);
+            k = 0;
+            for(String title : list1){
+
+                secodeFBuilder.add(new Term("All",title),k);
+                k++;
+            }
+         //   Query query1 = parser.parse(QueryParser.escape(myQuery.getDescription()));
+          //  Query query2 = new BoostQuery(parser.parse(QueryParser.escape(myQuery.getDescription())),3.5f);
             BoostQuery boostQuery = new BoostQuery(parser.parse(QueryParser.escape(replace(myQuery.getTitle()))),4.45f); //3.95
-            BoostQuery boostQuery1 = new BoostQuery(titleBuilder.build(),1.5f); //
+            BoostQuery boostQuery1 = new BoostQuery(mostFBuilder.build(),13.5f); //12.5
+            BoostQuery boostQuery2 = new BoostQuery(secodeFBuilder.build(),10.0f);
             builder.add(new BooleanClause(query, BooleanClause.Occur.SHOULD));
            // builder.add(new BooleanClause(query1,BooleanClause.Occur.SHOULD));
           //  builder.add(new BooleanClause(query2, BooleanClause.Occur.SHOULD));
             builder.add(new BooleanClause(boostQuery,BooleanClause.Occur.SHOULD));
             builder.add(new BooleanClause(boostQuery1,BooleanClause.Occur.SHOULD));
+            builder.add(new BooleanClause(boostQuery2, BooleanClause.Occur.SHOULD));
 
 
          //   query1.add(new BooleanClause(term1, BooleanClause.Occur.MUST));
@@ -140,12 +153,23 @@ public class QueryIndex {
 
 
         private static String replace(String ori){
-        String[] nouse = {"document","relevant","discuss",
-               "describing","information"};
+        //"document",
+        String[] nouse = {"relevant","discuss",
+                "describing","information", "but","off","take","did"};
         for(String r : nouse){
+
             ori = ori.replaceAll(r,"");
         }
-        return ori;
+        //ori = ori.replaceAll("/?", "");
+        //ori = ori.replaceAll("\\p{Punct}","");
+            //ori = ori.replaceAll("[\\pP\\p{Punct}]","");//清除所有符号,只留下字母 数字  汉字  共3类.
+            ori = ori.replaceAll("\\pP","");
+        StringBuilder sb = new StringBuilder();
+        for(String str : ori.split(" ")){
+            if(str.length() > 2 ||  str.equals("US") )
+                sb.append(str).append(" ");
+        }
+        return sb.toString();
         }
 
 
@@ -220,6 +244,55 @@ public class QueryIndex {
         });
         System.out.println("the result file is " + file);
 
+
+    }
+
+    private static List<String> wordsCount(String string, int max){
+        Map<String, Integer> map = new HashMap<>();
+
+        String[] words = string.split(" ");
+        List<String> result = new ArrayList<>();
+        for(String  word : words){
+            int i = map.containsKey(word) ? map.get(word) : 0;
+            if(word.toUpperCase().equals(word) && !word.trim().equals("103"))
+                i += 100;
+            map.put(word, i+1);
+        }
+        Stream<Map.Entry<String,Integer>> sorted =
+                map.entrySet().stream()
+                        .sorted(Collections.reverseOrder(Map.Entry.comparingByValue()));
+        List<String> list = sorted.filter(entry -> entry.getValue() >1 || entry.getKey().equals(entry.getKey().toUpperCase())).map(Map.Entry::getKey).collect(Collectors.toList());
+        int size = list.size();
+        int lime = size -1 ;
+
+        if(list.size() <= max)
+            return  result;
+    //    result.add(list.get(max));
+       // return  result;
+        for(int i = max; i <= Math.min(max, lime); i++){
+
+            if(list.get(i).isEmpty() || list.get(i).trim().equals("") || list.get(i).equals("the") || list.get(i).equals("are") || list.get(i).equals("any") ||
+            list.get(i).equals("and") || list.get(i).equals("for") || list.get(i).equals("been") || list.get(i).equals("being") || list.get(i).equals("sugar")
+            || list.get(i).equals("economic") || list.get(i).equals("enforcement")  )
+                continue;
+            System.out.println("top word: "+list.get(i));
+            result.add(list.get(i));
+        }
+        return  result;
+
+    }
+
+    private static List<String> moreThan(String string, int max){
+       List<String> list = new ArrayList<>();
+       String[] words = string.split(" ");
+       for(String word : words){
+           if(word.trim().length() > max || (!word.trim().isEmpty() && word.equals(word.toUpperCase()))) {
+               list.add(word);
+       //        System.out.println("long word: "+word);
+           }
+
+       }
+       return list;
 
     }
 

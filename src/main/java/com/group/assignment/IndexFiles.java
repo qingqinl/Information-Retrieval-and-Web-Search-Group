@@ -90,6 +90,7 @@ public class IndexFiles {
         //            if (line.isEmpty() || line.contains("<P>") || line.contains("</P>")) {
           //              continue;
             //        }
+                  //  line = line.;
                     allLines.append(line).append(" ");
                     if(line.isEmpty())
                         continue;
@@ -108,7 +109,7 @@ public class IndexFiles {
                     if (line.contains("<DOCNO>"))
                         flag = "docno";
                     if (line.contains("<HT>"))
-                        flag = "ht";
+                        //flag = "ht";
                     if (line.contains("<PARENT>"))
                         flag = "parent";
                     if (line.contains("<HEADER>") || line.contains("<HEADLINE>"))
@@ -236,7 +237,7 @@ public class IndexFiles {
                         TEXT = TEXT.replaceAll("[<>\\-]"," ");
                         GRAPHIC = GRAPHIC.replaceAll("[<>\\-]"," ");
                    //     doc.add(new TextField("All", PARENT + HEADER + BYLINE + TEXT + GRAPHIC, Field.Store.YES));
-                        doc.add(new TextField("All",allLines.toString(), Field.Store.YES));
+                        doc.add(new TextField("All",replace(allLines.toString().replaceAll("[\\pP\\p{Punct}]","")), Field.Store.YES));
                         allLines = new StringBuilder();
                         documents.add(doc);
                         DOCNO = null;
@@ -270,5 +271,15 @@ public class IndexFiles {
         // Commit everything and close
         iwriter.close();
         directory.close();
+    }
+
+    private static String replace(String ori){
+        String[] nouse = {"document","relevant","discuss",
+                "describing","information"};
+        for(String r : nouse){
+
+            ori = ori.replaceAll(r,"");
+        }
+        return ori;
     }
 }
